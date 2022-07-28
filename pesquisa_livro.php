@@ -1,13 +1,9 @@
 <?php
     $con = mysqli_connect('localhost','root','','webii_final');
-    $sql = "SELECT * FROM livro";
+    $sql = "SELECT * FROM livro l INNER JOIN livro_autor la ON l.id_livro = la.id_livro INNER JOIN autor a ON a.id_autor = la.id_autor GROUP BY l.nome_livro WHERE l.nome_livro LIKE '%".$_REQUEST['livro']."%'";
     $resultado = mysqli_query($con,$sql);
     if(!$resultado){
         echo mysqli_error($con);
     }
-    $livros = [];
-    while($linha = mysqli_fetch_assoc($resultado)){
-        $livros[]= $linha;
-    }
-    echo json_encode($livros);
+    echo json_encode($resultado);
 ?>

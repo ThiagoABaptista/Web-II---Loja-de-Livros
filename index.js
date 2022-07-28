@@ -3,7 +3,7 @@ function iniciar() {
         for(i in data){
             var livro = document.createElement('div');
             livro.onclick = abrirDetalhesLivro(this);
-            livro.innerHTML += "<img src='' alt='Capa' style='width:100%'><div class='container'><h3><b>"+data.nome_livro+"</b></h3><h4>"+data.nome_autor+"</h4><p>"+data_sumario+"</p><p class='price'>"+data.preco+"</p><p><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#livroDetalhesModalCenter'>Add to Cart</button></p></div></div>";
+            livro.innerHTML += "<img src='"+data.capa+"' alt='Capa' style='width:100%'><div class='container'><h3><b>"+data.nome_livro+"</b></h3><h4>"+data.nome_autor+"</h4><p>"+data_sumario+"</p><p class='price'>"+data.preco_livro+"</p><p><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#livroDetalhesModalCenter'  onclick'adicionarAoCarrinho()'>Adidicionar ao carrinho</button></p></div></div>";
             $("#main").append(livro);
         }
     });
@@ -15,8 +15,8 @@ function testeModal(){
 function abrirDetalhesLivro(e){
     var teste = $(e+' b').value;
     console.log(teste);
-    $.getJSON('ajax_pesquisa_livro.php', {e}, function(data) {});
-    $('#livroDetalhesModalCenter').modal('toggle');
+    $.getJSON('ajax_pesquisa_livro.php', {livro:teste}, setLivroDetalhes);
+    
     /*<div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
@@ -32,4 +32,11 @@ function abrirDetalhesLivro(e){
                 <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>*/
+}
+function setLivroDetalhes(data){
+    $('#livroDetalhesModalCenter').append = "<div class='modal-content'><div class='modal-header'><img src='"+data.capa+"' alt='Capa' style='width:100%'><h5 class='modal-title' id='exampleModalLongTitle'>"+data.livro.nome+"</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><h6>"+data.autor.nome+"</h6><p>"+data.livro.livro_sumario+"</p></div><div class='modal-footer'><div><b>Preço:</b><p>"+data.preco_livro+"</p></div><button type='button' class='btn btn-primary' onclick'adicionarAoCarrinho()'>Adidicionar ao carrinho</button></div></div>";
+    $('#livroDetalhesModalCenter').modal('toggle');
+}
+function adicionarAoCarrinho(){
+
 }
