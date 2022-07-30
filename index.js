@@ -1,10 +1,37 @@
 function iniciar() {
     $.getJSON('pesquisa_todos_livros.php', {}, function(data) {
         for(i in data){
+            console.log(data[i]);
             var livro = document.createElement('div');
+            //livro.onclick = abrirDetalhesLivro(this);
+            livro.style.maxWidth = '200px';
+            var capaLivro = document.createElement('img');
+            capaLivro.src = data[i].capa_livro;
+            capaLivro.alt = "Capa";
+            capaLivro.style.width = "100%";
+            livro.append(capaLivro);
+            var container_livro = document.createElement('div');
+            container_livro.classList.add("container");
             livro.onclick = abrirDetalhesLivro(this);
-            livro.innerHTML += "<img src='"+data.capa+"' alt='Capa' style='width:100%'><div class='container'><h3><b>"+data.nome_livro+"</b></h3><h4>"+data.nome_autor+"</h4><p>"+data_sumario+"</p><p class='price'>"+data.preco_livro+"</p><p><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#livroDetalhesModalCenter'  onclick'adicionarAoCarrinho()'>Adidicionar ao carrinho</button></p></div></div>";
+            livro.addEventListener("click",abrirDetalhesLivro(this));
+            container_livro.toggleAttribute("modal");
+            container_livro.dataset.target = "#livroDetalhesModalCenter";
+            livro.append(container_livro);
+            var titulo_livro = document.createElement('h3');
+            titulo_livro.textContent = data[i].nome_livro;
+            titulo_livro.style.fontWeight = "bold";
+            container_livro.append(titulo_livro);
+            //livro.innerHTML += "<img src='"+data[i].capa_livro+"' alt='Capa' style='width:100%'>"
+            //livro.innerHTML += "<h3><b>"+data[i].nome_livro+"</b></h3>"
+            
+            var nome_autor = document.createElement('h4');
+            nome_autor.textContent = data[i].nome_autor;
+            container_livro.append(nome_autor);
+            container_livro.innerHTML += "<p>"+data[i].sumario_livro+"</p>"
+            container_livro.innerHTML += "<p class='price'>"+data[i].preco_livro+"</p>"
+            container_livro.innerHTML += "</div><p><button type='button' class='btn btn-primary' onclick'adicionarAoCarrinho()'>Adidicionar ao carrinho</button></p>";
             $("#main").append(livro);
+            
         }
     });
 }
@@ -13,9 +40,9 @@ function testeModal(){
     $('#livroDetalhesModalCenter').modal('toggle');
 }
 function abrirDetalhesLivro(e){
-    var teste = $(e+' b').value;
-    console.log(teste);
-    $.getJSON('ajax_pesquisa_livro.php', {livro:teste}, setLivroDetalhes);
+    //var teste = document.querySelector(e+' b').value;
+    console.log(e);
+    //$.getJSON('ajax_pesquisa_livro.php', {livro:teste}, setLivroDetalhes);
     
     /*<div class="modal-content">
                 <div class="modal-header">
