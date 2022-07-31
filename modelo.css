@@ -1,8 +1,10 @@
 
 html{
     height: 100%;
+    
 }
 body{
+    background-color: lightcoral;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -13,14 +15,14 @@ body{
 }
 #main{
     margin: auto;
+    box-sizing: border-box;
     width: 90%;
-    border: 1px solid black;
     flex-grow: 4;
-    height: 100%;
+    background-color: lightgreen;
 }
 header{
     margin: auto;
-    flex:2;
+    flex:1;
 }
 footer{
     margin: auto;

@@ -14,7 +14,7 @@ $.getJSON('pesquisa_todos_livros.php', {}, function(data) {
         container_livro.toggleAttribute("modal");
         container_livro.dataset.target = "#livroDetalhesModalCenter";
         livro.append(container_livro);
-        var titulo_livro = document.createElement('h3');
+        var titulo_livro = document.createElement('h4');
         titulo_livro.textContent = data[i].nome_livro;
         titulo_livro.style.fontWeight = "bold";
         container_livro.append(titulo_livro);
@@ -40,7 +40,8 @@ function abrirDetalhesLivro(event){
         livro = livro.parentElement
     }
     sessionStorage.livroDetalhes = livro.id;
-    window.location.href = "livro_detalhes.html"
+    console.log(livro.id);
+    window.location.href = "livro_detalhes.html";
 }
 /*
 function setLivroDetalhes(data){
