@@ -1,5 +1,5 @@
 <?php
-    $con = mysqli_connect('localhost','root','','webii_ajax');
+    $con = mysqli_connect('localhost','thiago_baptista','[jD=qOKrPZ7$mcd2','id19357075_web_ii_final');
     $sql = "SELECT * FROM autor a INNER JOIN livro_autor la ON a.id_autor = la.id_autor WHERE la.id_livro = ".$_REQUEST['livro'].";";
     $resultado = mysqli_query($con,$sql);
     if(!$resultado){

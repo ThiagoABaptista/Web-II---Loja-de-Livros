@@ -29,6 +29,10 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `categoria` ( `id_categoria` INT NOT NULL AUTO_INCREMENT , `nome_categoria` VARCHAR(50) NOT NULL , PRIMARY KEY (`id_categoria`)) ENGINE = InnoDB;
+ALTER TABLE `livro` ADD `id_categoria` INT NOT NULL AFTER `preco_livro`;
+ALTER TABLE `livro` ADD FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
+
 INSERT INTO `webii_ajax`.`autor`
 (`id_autor`,
 `nome_autor`)
