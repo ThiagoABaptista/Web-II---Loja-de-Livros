@@ -15,6 +15,10 @@ $.getJSON('pesquisa_livro_id.php', {livro : sessionStorage.getItem(key)}, functi
                  
                 document.querySelector("#autores_nome").append(autores);
             }
-        })
+        });
+        $.getJSON('pesquisa_livro_autores.php', {livro : sessionStorage.getItem(key)}, function(data) {
+            
+            document.querySelector("#livro_categoria").textContent = data[0];
+        });
     }
 });

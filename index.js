@@ -1,5 +1,6 @@
 $.getJSON('pesquisa_todos_livros.php', {}, function(data) {
     for(i in data){
+        console.log(data[i]);
         var livro = document.createElement('div');
         //livro.onclick = abrirDetalhesLivro(this);
         livro.style.maxWidth = '200px';

@@ -25,6 +25,7 @@ CREATE TABLE `livro_autor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
+  `nome_usuario` VARCHAR(50),
   `password_usuario` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -33,36 +34,48 @@ CREATE TABLE `categoria` ( `id_categoria` INT NOT NULL AUTO_INCREMENT , `nome_ca
 ALTER TABLE `livro` ADD `id_categoria` INT NOT NULL AFTER `preco_livro`;
 ALTER TABLE `livro` ADD FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
 
-INSERT INTO `webii_ajax`.`autor`
-(`id_autor`,
+INSERT INTO `autor`
+(
 `nome_autor`)
 VALUES
-(<{id_autor: }>,
-<{nome_autor: }>);
+(
+"Tolkien");
 
-INSERT INTO `webii_ajax`.`livro`
-(`id_livro`,
+INSERT INTO `categoria`
+(
+`nome_categoria`)
+VALUES
+(
+"Fantasia");
+
+INSERT INTO `livro`
+(
 `nome_livro`,
 `sumario_livro`,
 `capa_livro`,
-`preco_livro`)
+`preco_livro`,
+`id_categoria`)
 VALUES
-(<{id_livro: }>,
-<{nome_livro: }>,
-<{sumario_livro: }>,
-<{capa_livro: }>,
-<{preco_livro: }>);
+(
+"O Senhor dos Anéis",
+"O Senhor dos Anéis é um livro de alta fantasia, escrito pelo escritor britânico J. R. R. Tolkien. Escrita entre 1937 e 1949, com muitas partes criadas durante a Segunda Guerra Mundial, a saga é uma continuação de O Hobbit.",
+"https://images-na.ssl-images-amazon.com/images/I/71ZLavBjpRL.jpg",
+46.89,
+1);
 
-INSERT INTO `webii_ajax`.`livro_autor`
+
+INSERT INTO `livro_autor`
 (`id_livro`,
 `id_autor`)
 VALUES
-(<{id_livro: }>,
-<{id_autor: }>);
+(1,
+1);
 
-INSERT INTO `webii_ajax`.`usuario`
-(`id_usuario`,
+INSERT INTO `id19357075_web_ii_final`.`usuario`
+(
+`nome_usuario`,
 `password_usuario`)
 VALUES
-(<{id_usuario: }>,
-<{password_usuario: }>);
+(
+"Thiago",
+"qwerty");

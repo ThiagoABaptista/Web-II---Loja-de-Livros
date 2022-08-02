@@ -8,7 +8,7 @@ img{
     display: grid;
     height: 100%;
     
-    grid-template-rows: 30% 10% 30% 20% 10%;
+    grid-template-rows: 30% 10% 10% 20% 20% 10%;
 }
 #main *{
   margin: auto;
