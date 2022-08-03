@@ -8,7 +8,7 @@
     $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
     or die ('Could not connect to the database server' . mysqli_connect_error()); 
     //$con = mysqli_connect('localhost','id19357075_thiago_baptista','[jD=qOKrPZ7$mcd2','id19357075_web_ii_final');
-    $sql = "SELECT l.id_livro,l.nome_livro,l.sumario_livro,l.capa_livro,l.preco_livro FROM livro l INNER JOIN livro_autor la ON l.id_livro = la.id_livro INNER JOIN autor a ON a.id_autor = la.id_autor GROUP BY l.id_livro";
+    $sql = "SELECT l.id_livro,l.nome_livro,l.sumario_livro,l.capa_livro,l.preco_livro FROM livro l INNER JOIN livro_autor la ON l.id_livro = la.id_livro INNER JOIN autor a ON a.id_autor = la.id_autor GROUP BY l.id_livro LIMIT 20";
     $resultado = mysqli_query($con,$sql);
     if(!$resultado){
         echo mysqli_error($con);

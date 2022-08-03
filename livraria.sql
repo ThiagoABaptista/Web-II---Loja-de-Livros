@@ -33,7 +33,7 @@ CREATE TABLE `usuario` (
 CREATE TABLE `categoria` ( `id_categoria` INT NOT NULL AUTO_INCREMENT , `nome_categoria` VARCHAR(50) NOT NULL , PRIMARY KEY (`id_categoria`)) ENGINE = InnoDB;
 ALTER TABLE `livro` ADD `id_categoria` INT NOT NULL AFTER `preco_livro`;
 ALTER TABLE `livro` ADD FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
-
+ALTER TABLE `usuario` ADD `email_usuario` VARCHAR(50) NOT NULL AFTER `nome_usuario`;
 INSERT INTO `autor`
 (
 `nome_autor`)
@@ -74,8 +74,10 @@ VALUES
 INSERT INTO `id19357075_web_ii_final`.`usuario`
 (
 `nome_usuario`,
-`password_usuario`)
+`password_usuario`,
+`email_usuario`)
 VALUES
 (
-"Thiago",
-"qwerty");
+<{nome_usuario: }>,
+<{password_usuario: }>,
+<{email_usuario: }>);

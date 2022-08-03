@@ -1,50 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web-II---Loja-de-Livros</title>
-    <meta charset="UTF-8">
     <link rel="stylesheet"  type="text/css" href="modelo.css">
-    <link rel="stylesheet"  type="text/css" href="carrinho.css">
+    <link rel="stylesheet"  type="text/css" href="user_login.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
 </head>
 <body>
+    <button class="btn btn-link" type="button"><a href="index.html">Voltar para a página inicial</a></button>
     <header>
         <h2>
-            Carrinho
+            Login do Usuário
         </h2>
     </header>
-    <button class="btn btn-link" type="button"><a href="index.html">Voltar para a página inicial</a></button>
     <div id="main">
-        <table id="carrinho">
-            <thead>
-                <tr>
-                    <th>Quantidade</th>
-                    <th>Nome</th>
-                    <th>Preco</th>
-                    <th>Deletar</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot id="total">
-                <tr>
-                    <th scope="row">Preço Total:</th>
-                </tr>
-            </tfoot>
-        </table>
-        
-        <button type='button' class='btn btn-primary' onclick='finalizarCompra()'>Finalizar Compra</button>
+        <form method="post" action="user_login.php">
+            <fieldset>
+                <legend>
+                    Dados pessoais
+                </legend>
+                <label>Login:<input name="login" type="text"></label><br>
+                <label>Senha:<input name="password" type="password"></label>
+            </fieldset>
+            <input type="submit">
+        </form>
     </div>
     <footer>
         <p>
             by Thiago Aschebrock Baptista</p>
     </footer>
-    <script src="carrinho.js"></script>
 </body>
 </html>

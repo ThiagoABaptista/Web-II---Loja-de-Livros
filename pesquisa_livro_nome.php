@@ -14,5 +14,9 @@
     if(!$resultado){
         echo mysqli_error($con);
     }
-    echo json_encode($resultado);
+    $livros = [];
+    while($linha = mysqli_fetch_assoc($resultado)){
+        $livros[]= $linha;
+    }
+    echo json_encode($livros);
 ?>

@@ -1,0 +1,8 @@
+#main{
+    text-align: center;
+}
+fieldset{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}

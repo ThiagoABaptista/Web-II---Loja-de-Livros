@@ -8,10 +8,10 @@
     $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
     or die ('Could not connect to the database server' . mysqli_connect_error()); 
     //$con = mysqli_connect('localhost','id19357075_thiago_baptista','[jD=qOKrPZ7$mcd2','id19357075_web_ii_final');
-    $sql = "SELECT * FROM  autor a WHERE a.id_autor = ".$_REQUEST['autor']."";
+    $sql = "SELECT * FROM usuario u WHERE u.nome_usuario LIKE '%".$_REQUEST['usuario']."%'";
     $resultado = mysqli_query($con,$sql);
     if(!$resultado){
         echo mysqli_error($con);
     }
-    echo json_encode(mysqli_fetch_row($resultado));
+    echo json_encode($resultado);
 ?>
