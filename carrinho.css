@@ -1,0 +1,21 @@
+thead th{
+    text-align: center;
+    margin: auto;
+    background-color: black;
+    color: white;
+}
+#main{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+tbody{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+table{
+    flex-grow: 4;
+    margin: auto;
+    width: 100%;
+}

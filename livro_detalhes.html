@@ -13,17 +13,19 @@
     <script src="livro_detalhes.js"></script>
 </head>
 <body>
+    <button class="btn btn-link" type="button"><a href="index.html">Voltar para a página inicial</a></button>
     <header>
-        <h2>
-            Web-II---Loja-de-Livros
+        <h2 id="livro_nome">
+            
         </h2>
     </header>
     <div id="main">
         <img src="" id="livro_capa">
-        <h3 id="livro_nome"></h3>
-        <div><ul id="autores_nome">
-            <h4>Autores do livro</h4>
-        </ul>
+        
+        <div>
+            <ul id="autores_nome">
+                <h4>Autores do livro</h4>
+            </ul>
         </div>
         <div>
             <h4>
@@ -32,13 +34,17 @@
             <p id="livro_categoria"></p>
         </div>
         <div>
-        <h4>Sumário:</h4>
-        <p id="livro_sumario"></p>
+            <h4>Sumário:</h4>
+            <p id="livro_sumario"></p>
         </div>
         <div>
-        <h4>Preço:</h4>
-        <p id="livro_preco" class='price'></p>
+            <h4>Preço:</h4>
+            <p id="livro_preco" class='price'></p>
         </div>
+        <div>
+            <button type='button' class='btn btn-primary' onclick='adicionarAoCarrinho()'>Adicionar ao Carrinho</button>
+        </div>
+        
     </div>
     <footer>
         <p>
