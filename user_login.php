@@ -25,12 +25,10 @@ ob_start();
     session_start();
     $sql = "SELECT * FROM `usuario` WHERE `nome_usuario` = '".$login."' AND `password_usuario`= '".$password."';";
     $resultado = mysqli_query($con,$sql);
-    echo json_encode($sql);
-    echo json_encode($resultado);
     if(!$resultado){
         unset ($_SESSION['login']);
         unset ($_SESSION['password']);
-        //header('location:index.html');
+        header('location:index.html');
     }else{
         if(mysqli_num_rows ($resultado) > 0 )
         {
@@ -41,7 +39,7 @@ ob_start();
         else{
             unset ($_SESSION['login']);
             unset ($_SESSION['password']);
-            //header('location:index.html');
+            header('location:user_cadastro.html');
         }
     }
 ?>
