@@ -9,15 +9,58 @@ $.getJSON('valida_usuario.php', function(data) {
 
     }
 });
+
 function iniciar(){
     livros_carrinho = [];
-    var carrinho = JSON.parse(sessionStorage.getItem("carrinho"));
+    var carrinho;
+    $.post('carrinho_get.php',function(data){
+        if(data == false){
+            carrinho = null;    
+        }else{
+            carrinho = JSON.parse(data);
+            console.log(carrinho);
+            setCarrinhoHtml(carrinho);
+        }
+        
+    });
+        /*
+        for(var i = 0; i < carrinho.length;i++){
+            
+            var linha = document.createElement('tr');
+            var quant = document.createElement('td');
+            
+            var quant_text = document.createElement('input');
+            quant_text.setAttribute('type','number');
+            quant_text.value = quant_livro;
+            quant_text.style.textAlign = "center";
+            quant.append(quant_text);
+            
+            var excluir = document.createElement('td');
+            var excluir_btn = document.createElement('button');
+            excluir_btn.textContent = "X";
+            excluir_btn.type = "button";
+            excluir_btn.classList.add("btn");
+            excluir_btn.classList.add("btn-danger");
+            excluir.append(excluir_btn);
+            */
+            
+            /*
+            excluir_btn.addEventListener('click',deletar);
+            quant_text.addEventListener('change',atualizar);
+            $('#carrinho tbody').append(linha);
+            
+        }
+        */
+    //$('#total').innerHTML = "<tr><th scope='row'>Preço Total:</th><td>"+preco_total+"</td></tr>"
+}
+function setCarrinhoHtml(carrinho){
     if(carrinho === null){
         //$('#carrinho thead').style.visibility = "hidden";
         $('#carrinho').innerHTML = "<p>Carrinho Vazio</p>";
     }else{
         document.querySelector('#carrinho tbody ').innerHTML = "";
         preco_total = 0;
+        
         carrinho.forEach(item => {
             var excluir_html = "<td><button class = 'btn btn-danger' onclick='deletar(this)'>X</button></td>";
             var quant_livro = item.quant;
@@ -43,35 +86,7 @@ function iniciar(){
                 }
             });
         });
-        for(var i = 0; i < carrinho.length;i++){
-            /*
-            var linha = document.createElement('tr');
-            var quant = document.createElement('td');
-            
-            var quant_text = document.createElement('input');
-            quant_text.setAttribute('type','number');
-            quant_text.value = quant_livro;
-            quant_text.style.textAlign = "center";
-            quant.append(quant_text);
-            
-            var excluir = document.createElement('td');
-            var excluir_btn = document.createElement('button');
-            excluir_btn.textContent = "X";
-            excluir_btn.type = "button";
-            excluir_btn.classList.add("btn");
-            excluir_btn.classList.add("btn-danger");
-            excluir.append(excluir_btn);
-            */
-            
-            /*
-            excluir_btn.addEventListener('click',deletar);
-            quant_text.addEventListener('change',atualizar);
-            $('#carrinho tbody').append(linha);
-            */
-        }
-        
     }
-    //$('#total').innerHTML = "<tr><th scope='row'>Preço Total:</th><td>"+preco_total+"</td></tr>"
 }
 function adicionarAoPrecoTotal(preco_livro){
     preco_total += preco_livro;
@@ -80,22 +95,27 @@ function adicionarAoPrecoTotal(preco_livro){
 function deletar(e){
     var flag = false;
     var nome = e.parentElement.parentElement.children[1].textContent;
-    var carrinho = JSON.parse(sessionStorage.getItem("carrinho"));
-    for(var i = 0; i < livros_carrinho.length || !flag; i++){
-        if(nome == livros_carrinho[i].nome_livro){
-            carrinho.splice(i,1);
-            sessionStorage.carrinho = JSON.stringify(carrinho);
-            flag = true;
-        }
-    }
+    $.getJSON('pesquisa_livro_nome.php',{livro: nome},function(data){
+        $.post('carrinho_delete_item.php',{id_livro : data[0].id_livro},function(data){
+        });
+    });
     iniciar();
+    window.location.href = "carrinho.html";
 }
 
 function atualizar(e){
     var flag = false;
     var nome = e.parentElement.parentElement.children[1].textContent;
+    if(e.value > 0){
+        $.getJSON('pesquisa_livro_nome.php',{livro: nome},function(data){
+            $.post('carrinho_add.php',{id_livro : data[0].id_livro, quantidade: e.value},function(data){
+                iniciar();
+                window.location.href = "carrinho.html";
+            });
+        });
+    }
     var carrinho = JSON.parse(sessionStorage.getItem("carrinho"));
-    if(e.value >= 0){
+    if(e.value > 0){
         for(i in livros_carrinho){  
             if(nome == livros_carrinho[i].nome_livro && !flag){
                 carrinho[i].quant = e.value;
@@ -106,23 +126,22 @@ function atualizar(e){
     }
     iniciar();
 }
-function finalizarCompra(event){
-    var carrinho = JSON.parse(sessionStorage.getItem("carrinho"));
-    if(carrinho === null || carrinho == {} ){
-        alert("Carrinho Vazio!");
-    }else{
+function finalizarCompra(){
         $.post('valida_usuario.php', function(data) {
             console.log(data);
-        });
-        $.getJSON('valida_usuario.php', function(data) {
             if(data != false){
-                sessionStorage.clear();
-                alert("Compra realizada!\nVoi enviado um recibo para seu email.")
-                window.location.href = "index.html";
+                $.post('enviar_recibo.php',function(data){
+                    console.log(data);
+                    if(data){
+                        alert("Compra realizada!\nVoi enviado um recibo para seu email.");
+                    }else{
+                        alert("Ocorreu algum erro!");
+                    }
+                })
+                //window.location.href = "index.html";
             }else{
                 alert('Você não está logado!');
             }
         });
-    }
     
 }

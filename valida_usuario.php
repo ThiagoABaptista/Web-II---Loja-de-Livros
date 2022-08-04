@@ -1,7 +1,7 @@
 <?php
   ob_start();
   session_start();
-  if(session_status() !== PHP_SESSION_ACTIVE || session_id() === "" || $_SESSION == null){  
+  if(session_status() !== PHP_SESSION_ACTIVE || $_SESSION == null || !(isset($_SESSION['login']))){  
     echo json_encode(false); 
   }else{
     $login = $_SESSION['login'];

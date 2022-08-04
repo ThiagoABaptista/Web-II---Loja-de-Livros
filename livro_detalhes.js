@@ -29,6 +29,24 @@ $.getJSON('pesquisa_livro_id.php', {livro : livro_id}, function(data) {
     }
 });
 function adicionarAoCarrinho(){
+    var livro = JSON.parse(sessionStorage.getItem("livroDetalhes"));
+    $.post('carrinho_get_quant.php', {id_livro: livro}, function(data) {
+        console.log(data);
+        if(data == false || data == "" || data == "false"){
+            $.post('carrinho_add.php', {id_livro: livro,quantidade:1},function(data){
+                console.log(data);
+            });        
+        }else{
+            var quant = JSON.parse(data);
+            console.log(quant);  
+            quant++;
+            $.post('carrinho_add.php', {id_livro: livro,quantidade:quant},function(data){
+                console.log(data);
+            });
+        }
+    });
+    window.location.href = "carrinho.html";
+    /*
     var flag = false;
     var carrinho;
     if(sessionStorage.getItem("carrinho") != null){
@@ -48,5 +66,5 @@ function adicionarAoCarrinho(){
         carrinho = [{id_livro: sessionStorage.getItem("livroDetalhes"),quant:1,nome_livro:livro_nome}];
     }
     sessionStorage.carrinho = JSON.stringify(carrinho);
-    window.location.href = "carrinho.html";
+    */
 }

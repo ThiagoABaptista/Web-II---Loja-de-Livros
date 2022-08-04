@@ -7,14 +7,13 @@ $.getJSON('valida_usuario.php', function(data) {
         console.log('Bem Vindo,'+ data[1] +'(Clique em mim para deslogar!)');
         document.querySelector("#logar").innerHTML = "<a onclick='deslogar_usuario()'>Bem Vindo,"+ data[1] +"(Clique em mim para deslogar!)</a>";
     }else{
-        
         document.querySelector("#logar").innerHTML = '<button id="logar" class="btn btn-link" type="button"><a href="user_login.html">Logar</a></button>'
     }
 });
-$.getJSON('pesquisa_todos_livros.php', {}, adicionarLivrosHtml);
+$.getJSON('pesquisa_todos_livros.php', {}, setLivrosHtml);
 
 
-function adicionarLivrosHtml(data){
+function setLivrosHtml(data){
     document.querySelector("#main").innerHTML = "";
     for(i in data){
         var livro = document.createElement('div');
@@ -68,5 +67,25 @@ function abrirDetalhesLivro(event){
 function buscar(e){
     var pesquisa = e.parentElement.children[0].value;
     console.log(pesquisa);
-    $.getJSON('pesquisa_livro_nome.php', {livro : pesquisa},adicionarLivrosHtml);
+    $.getJSON('pesquisa_livro_nome.php', {livro : pesquisa},setLivrosHtml);
 }
+function buscarCategorias(){
+    $.getJSON('pesquisa_categoria_all.php', {},setCategoriasMenuHtml);
+}
+function setCategoriasMenuHtml(data){
+    document.querySelector('#categorias').innerHTML = "";
+    for(i in data){
+        var categoria = document.createElement('li');
+        categoria.classList.add('nav-item');
+        categoria.classList.add('active');
+        var categoria_nome = document.createElement('button');
+        categoria_nome.textContent = data[i].nome_categoria;
+        categoria_nome.classList.add("btn-link");
+        categoria.append(categoria_nome);
+        categoria.addEventListener('click',setCategoriasResultadoHtml)
+        $('#categorias').append(categoria);
+    }
+}
+function setCategoriasResultadoHtml(event){
+    $.getJSON('pesquisa_livro_categoria.php',{categoria:event.target.textContent},setLivrosHtml);
+}  

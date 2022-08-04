@@ -20,14 +20,27 @@
     </header>
     <button id="logar" class="btn btn-link" type="button"><a href="user_login.html">Logar</a></button>
     <div id="buscar">
-        <input type="text"  placeholder="Título do Livro"><button onclick="buscar(this)">Buscar</button>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Título do Livro" aria-label="Search">
+            <button onclick= "buscar(this)" class="btn btn-outline-success my-2 my-sm-0" type="button">Pesquisar</button>
+          </form>
     </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="">Categorias</a>
+        <button onclick="buscarCategorias()" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto" id="categorias">
+          </ul>
+        </div>
+      </nav>
     <div id="main">
         
     </div>
     <footer>
-        <p>
-            by Thiago Aschebrock Baptista</p>
+      <a href="contato.html">Fale Conosco</a>
+      <p>by Thiago Aschebrock Baptista</p>
     </footer>
 </body>
 <script src="index.js"></script>
