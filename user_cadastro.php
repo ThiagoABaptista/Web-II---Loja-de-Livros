@@ -1,14 +1,25 @@
 <?php
 ob_start();
+/*
 $host="localhost";
 $port=3306;
 $socket="";
 $user="root";
-$senha="";
+$password="";
 $dbname="id19357075_web_ii_final";
-$con = new mysqli($host, $user, $senha, $dbname, $port, $socket)
+$con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 or die ('Could not connect to the database server' . mysqli_connect_error()); 
-//$con = mysqli_connect('localhost','id19357075_thiago_baptista','[jD=qOKrPZ7$mcd2','id19357075_web_ii_final');
+*/
+
+$host="localhost";
+$port=3306;
+$socket="";
+$user="id19357075_thiago_baptista";
+$password="[jD=qOKrPZ7$mcd2";
+$dbname="id19357075_web_ii_final";
+$con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+or die ('Could not connect to the database server' . mysqli_connect_error()); 
+
 $email = explode('@',$_POST['email']);
 if(count($email) != 2){
     header("Location: " . $_SERVER["HTTP_REFERER"]);
