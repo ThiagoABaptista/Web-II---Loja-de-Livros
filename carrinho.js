@@ -129,7 +129,7 @@ function atualizar(e){
 function finalizarCompra(){
         $.post('valida_usuario.php', function(data) {
             console.log(data);
-            if(data != false){
+            if(data !=  "false"){
                 $.post('enviar_recibo.php',function(data){
                     console.log(data);
                     if(data){
@@ -138,7 +138,7 @@ function finalizarCompra(){
                         alert("Ocorreu algum erro!");
                     }
                 })
-                //window.location.href = "index.html";
+                window.location.href = "index.html";
             }else{
                 alert('Você não está logado!');
             }

@@ -19,9 +19,10 @@
         </h2>
     </header>
     <div id="main">
-        <form action="contato.php">
-            Fale Conosco:
-            <textarea name="msg"></textarea> <br>
+        Fale Conosco:
+        <form method="post" action="contato.php">
+            Assunto: <br><input type="text" name="assunto"> <br>
+            Mensagem: <br><textarea name="msg"></textarea> <br>
             <input type="submit" value="Enviar">
             </form>
     </div>
@@ -30,5 +31,4 @@
             by Thiago Aschebrock Baptista</p>
     </footer>
 </body>
-<script src="index.js"></script>
 </html>

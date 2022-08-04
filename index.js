@@ -1,11 +1,7 @@
-$.post('valida_usuario.php',function(data){
-    console.log(data);
-});
-$.getJSON('valida_usuario.php', function(data) {
-    console.log(data);
-    if(data != false){
-        console.log('Bem Vindo,'+ data[1] +'(Clique em mim para deslogar!)');
-        document.querySelector("#logar").innerHTML = "<a onclick='deslogar_usuario()'>Bem Vindo,"+ data[1] +"(Clique em mim para deslogar!)</a>";
+$.post('valida_usuario.php', function(data) {
+    var usuario =  JSON.parse(data);
+    if(data != "false"){
+        document.querySelector("#logar").innerHTML = "<a onclick='deslogar_usuario()'>Bem Vindo,"+ usuario[2] +"(Clique em mim para deslogar!)</a>";
     }else{
         document.querySelector("#logar").innerHTML = '<button id="logar" class="btn btn-link" type="button"><a href="user_login.html">Logar</a></button>'
     }
@@ -14,6 +10,7 @@ $.getJSON('pesquisa_todos_livros.php', {}, setLivrosHtml);
 
 
 function setLivrosHtml(data){
+    console.log(data);
     document.querySelector("#main").innerHTML = "";
     for(i in data){
         var livro = document.createElement('div');
