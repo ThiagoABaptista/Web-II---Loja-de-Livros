@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Tempo de geração: 02-Ago-2022 às 00:00
+-- Tempo de geração: 04-Ago-2022 às 16:23
 -- Versão do servidor: 10.5.16-MariaDB
 -- versão do PHP: 7.3.32
 
@@ -33,6 +33,14 @@ CREATE TABLE `autor` (
   `nome_autor` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `autor`
+--
+
+INSERT INTO `autor` (`id_autor`, `nome_autor`) VALUES
+(1, 'Tolkien'),
+(3, 'William Gibson');
+
 -- --------------------------------------------------------
 
 --
@@ -43,6 +51,14 @@ CREATE TABLE `categoria` (
   `id_categoria` int(11) NOT NULL,
   `nome_categoria` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `categoria`
+--
+
+INSERT INTO `categoria` (`id_categoria`, `nome_categoria`) VALUES
+(1, 'Fantasia'),
+(2, 'Ficção');
 
 -- --------------------------------------------------------
 
@@ -55,9 +71,17 @@ CREATE TABLE `livro` (
   `nome_livro` varchar(255) DEFAULT NULL,
   `sumario_livro` varchar(255) DEFAULT NULL,
   `capa_livro` varchar(255) DEFAULT NULL,
-  `preco_livro` decimal(3,0) DEFAULT NULL,
+  `preco_livro` decimal(5,2) DEFAULT NULL,
   `id_categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `livro`
+--
+
+INSERT INTO `livro` (`id_livro`, `nome_livro`, `sumario_livro`, `capa_livro`, `preco_livro`, `id_categoria`) VALUES
+(1, 'O Senhor dos Anéis', 'O Senhor dos Anéis é um livro de alta fantasia, escrito pelo escritor britânico J. R. R. Tolkien. Escrita entre 1937 e 1949, com muitas partes criadas durante a Segunda Guerra Mundial, a saga é uma continuação de O Hobbit.', 'https://images-na.ssl-images-amazon.com/images/I/71ZLavBjpRL.jpg', 47.00, 1),
+(3, 'Neuromancer', 'Evoluindo de Blade Runner e antecipando Matrix, Neuromancer é o romance de estreia de William Gibson. Esta obra distópica, publicada em 1984, antevê, de modo muito preciso, vários aspectos fundamentais da sociedade atual e de sua relação com a tecnologia.', 'https://images-na.ssl-images-amazon.com/images/I/91Bx5ilP+EL.jpg', 29.90, 2);
 
 -- --------------------------------------------------------
 
@@ -70,6 +94,14 @@ CREATE TABLE `livro_autor` (
   `id_autor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `livro_autor`
+--
+
+INSERT INTO `livro_autor` (`id_livro`, `id_autor`) VALUES
+(1, 1),
+(3, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -78,7 +110,9 @@ CREATE TABLE `livro_autor` (
 
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
-  `password_usuario` varchar(255) DEFAULT NULL
+  `password_usuario` varchar(255) DEFAULT NULL,
+  `nome_usuario` varchar(50) NOT NULL,
+  `email_usuario` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -125,19 +159,25 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `autor`
 --
 ALTER TABLE `autor`
-  MODIFY `id_autor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `livro`
 --
 ALTER TABLE `livro`
-  MODIFY `id_livro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_livro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restrições para despejos de tabelas
@@ -155,10 +195,7 @@ ALTER TABLE `livro`
 ALTER TABLE `livro_autor`
   ADD CONSTRAINT `fk_id_livro` FOREIGN KEY (`id_livro`) REFERENCES `livro` (`id_livro`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_livro_autor` FOREIGN KEY (`id_autor`) REFERENCES `autor` (`id_autor`);
-
-ALTER TABLE `usuario` ADD `email_usuario` VARCHAR(50) NOT NULL AFTER `nome_usuario`;
 COMMIT;
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
