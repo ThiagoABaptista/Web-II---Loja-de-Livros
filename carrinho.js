@@ -95,12 +95,18 @@ function adicionarAoPrecoTotal(preco_livro){
 function deletar(e){
     var flag = false;
     var nome = e.parentElement.parentElement.children[1].textContent;
+    console.log(nome);
     $.getJSON('pesquisa_livro_nome.php',{livro: nome},function(data){
+        console.log(data[0].id_livro);
         $.post('carrinho_delete_item.php',{id_livro : data[0].id_livro},function(data){
+            console.log(data);
+            if(data != false){
+                window.location.href = data;
+            }
+                
         });
     });
     iniciar();
-    window.location.href = "carrinho.html";
 }
 
 function atualizar(e){

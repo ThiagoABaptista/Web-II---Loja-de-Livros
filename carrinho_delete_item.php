@@ -8,23 +8,19 @@ if(isset($_SESSION['carrinho'])){
     $flag = false;
     foreach($carrinho as $key => $value){
         if($value["id_livro"] == $id_livro  && !$flag){
-            
-            $index = $key;
+            array_splice($carrinho,$key,1);
             $flag = true;
-
-            
         }
     }
-    
     if(!$flag){
-        echo false;
+        echo json_encode(false);
     }else{
-        array_splice($carrinho,$key,1);
+        
     }
 }else{
-    echo false;
+    echo json_encode(false);
 }
-
 $_SESSION['carrinho'] = $carrinho;
-header('location:carrinho.html');
+echo "carrinho.html";
+//header('location:carrinho.html');
 ?>
