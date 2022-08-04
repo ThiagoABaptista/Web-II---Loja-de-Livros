@@ -23,30 +23,32 @@ session_start();
     $carrinho = $_SESSION['carrinho'];
     $password = $_SESSION['password'];
 
-$sql = "SELECT email_usuario FROM `usuario` WHERE `nome_usuario` = '".$login."' AND `password_usuario`= '".$password."';";
-$resultado = mysqli_query($con,$sql);
-$email = mysqli_fetch_row($resultado)[0];
-while($linha = mysqli_fetch_assoc($resultado)){
-    $livros[]= $linha;
-}
-$total = 0;
-$msg = "Recibo de compra na loja:\n--------";
-foreach($carrinho as $key => $value){
-    $id_livro = $value["id_livro"];
-    $sql = "SELECT l.nome_livro FROM `livro` l WHERE `id_livro` = ".$id_livro;
+    $sql = "SELECT email_usuario FROM `usuario` WHERE `nome_usuario` = '".$login."' AND `password_usuario`= '".$password."';";
     $resultado = mysqli_query($con,$sql);
-    $nome_livro = mysqli_fetch_row($resultado)[0];
-    $sql = "SELECT l.preco_livro FROM `livro` l WHERE `id_livro` = ".$id_livro;
-    $resultado = mysqli_query($con,$sql);
-    $preco_livro = mysqli_fetch_row($resultado)[0];
-    $total += $value['quant'] * $preco_livro;
-    $msg .= "\nLivro:".$nome_livro ."\nPreço da unidade:".$preco_livro."\nQuantidade: ".$value['quant']."\n";
-}
-$msg .= "\n--------Preço total: R$".$total;
-if(mail($email,'Recibo Web-II---Loja-de-Livros',$msg)){
-    echo true;
-}else{
-    echo false;
-}
-unset ($_SESSION['carrinho']);
+    $email = mysqli_fetch_row($resultado)[0];
+    $total = 0;
+    if(count($carrinho) != 0){
+        $msg = "Recibo de compra na loja:\n--------";
+        foreach($carrinho as $key => $value){
+            $id_livro = $value["id_livro"];
+            $sql = "SELECT l.nome_livro FROM `livro` l WHERE `id_livro` = ".$id_livro;
+            $resultado = mysqli_query($con,$sql);
+            $nome_livro = mysqli_fetch_row($resultado)[0];
+            $sql = "SELECT l.preco_livro FROM `livro` l WHERE `id_livro` = ".$id_livro;
+            $resultado = mysqli_query($con,$sql);
+            $preco_livro = mysqli_fetch_row($resultado)[0];
+            $total += $value['quant'] * $preco_livro;
+            $msg .= "\nLivro:".$nome_livro ."\nPreço da unidade:".$preco_livro."\nQuantidade: ".$value['quant']."\n";
+        }
+        $msg .= "\n--------Preço total: R$".$total;
+        if($total != 0){
+            mail($email,'Recibo Web-II---Loja-de-Livros',$msg);
+            unset ($_SESSION['carrinho']);
+            echo "index.html";
+        }else{
+            echo false;
+        }
+    }else{
+        echo "vazio";
+    }
 ?>

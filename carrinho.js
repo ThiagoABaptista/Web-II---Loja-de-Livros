@@ -120,31 +120,27 @@ function atualizar(e){
             });
         });
     }
-    var carrinho = JSON.parse(sessionStorage.getItem("carrinho"));
-    if(e.value > 0){
-        for(i in livros_carrinho){  
-            if(nome == livros_carrinho[i].nome_livro && !flag){
-                carrinho[i].quant = e.value;
-                sessionStorage.carrinho = JSON.stringify(carrinho);
-                flag = true;
-            }
-        }
-    }
     iniciar();
 }
 function finalizarCompra(){
         $.post('valida_usuario.php', function(data) {
             console.log(data);
             if(data !=  "false"){
-                $.post('enviar_recibo.php',function(data){
-                    console.log(data);
-                    if(data){
-                        alert("Compra realizada!\nVoi enviado um recibo para seu email.");
-                    }else{
-                        alert("Ocorreu algum erro!");
+                $.post('carrinho_get.php', function(data) {
+                    if(JSON.parse( data) != []){
+                        $.post('enviar_recibo.php',function(data){
+                            console.log(data);
+                            if(data == "false" || data == "vazio"){
+                                data == "vazio" ? alert("Carrinho vazio!") : alert("Ocorreu algum erro!");
+                            }else{
+                                alert("Compra realizada!\nFoi enviado um recibo para seu email.");
+                                window.location.href = data;
+                                
+                            }
+                        });
                     }
                 })
-                window.location.href = "index.html";
+                
             }else{
                 alert('Você não está logado!');
             }
